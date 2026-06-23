@@ -1,0 +1,245 @@
+/* ============================================================
+   main.css — Base styles for Shiva's Shred Plan
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  background: #0a0a0a;
+  color: #e5e5e5;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── Header ── */
+.header {
+  background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+  padding: 52px 18px 0;
+  border-bottom: 1px solid #1e1e2e;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.header-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #f97316;
+  text-transform: uppercase;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.header-sub {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 14px;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.tab.active {
+  color: #f97316;
+  border-bottom: 2px solid #f97316;
+}
+
+/* ── Layout ── */
+.content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px 14px 0;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #f97316;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  margin-top: 20px;
+}
+
+/* ── Cards ── */
+.card {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.card-header {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: inherit;
+}
+.card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.card-day   { font-size: 10px; color: #555; font-weight: 600; letter-spacing: 1px; }
+.card-title { font-size: 14px; font-weight: 700; color: #fff; }
+.card-right { display: flex; align-items: center; gap: 6px; }
+.card-body  { padding: 0 16px 16px; border-top: 1px solid #1a1a1a; display: none; }
+.card-body.open { display: block; }
+.chevron    { color: #444; font-size: 11px; transition: transform 0.2s; }
+
+/* ── Badges ── */
+.badge        { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+.badge-orange { background: #f9731620; color: #f97316; }
+.badge-green  { background: #22c55e20; color: #22c55e; }
+.badge-purple { background: #a78bfa20; color: #a78bfa; }
+
+/* ── Exercise rows ── */
+.ex-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #141414; }
+.ex-row:last-child { border-bottom: none; }
+.ex-name { font-size: 13px; color: #ccc; }
+.ex-sets { font-size: 12px; color: #777; font-weight: 600; }
+.abs-label { margin-top: 10px; font-size: 10px; color: #f97316; letter-spacing: 1px; font-weight: 700; }
+
+/* ── Ingredient rows ── */
+.ing-row { font-size: 13px; color: #ccc; padding: 6px 0; border-bottom: 1px solid #141414; line-height: 1.5; }
+.ing-row:last-child { border-bottom: none; }
+.ing-row.new-item { color: #f97316; font-weight: 700; background: #1a120022; padding: 7px 10px; border-radius: 8px; border: 1px solid #f9731630; margin: 4px 0; }
+.rc-note { font-size: 11px; color: #666; display: block; margin-top: 1px; }
+.option-divider { font-size: 11px; color: #f97316; font-weight: 700; margin: 6px 0 2px; }
+
+/* ── Supplement rows ── */
+.supp-section       { background: #111; border: 1px solid #1e1e2e; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+.supp-section-title { font-size: 12px; font-weight: 700; color: #a5b4fc; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+.supp-row     { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #181828; }
+.supp-row:last-child { border-bottom: none; }
+.supp-left    { flex: 1; }
+.supp-name    { font-size: 13px; color: #c7d2fe; font-weight: 600; }
+.supp-detail  { font-size: 11px; color: #666; margin-top: 3px; line-height: 1.5; max-width: 240px; }
+.supp-right   { text-align: right; min-width: 70px; }
+.supp-dose    { font-size: 12px; color: #818cf8; font-weight: 700; }
+.supp-timing  { font-size: 10px; color: #555; margin-top: 2px; }
+
+/* ── Info boxes ── */
+.addition-box { margin-top: 12px; background: #1a120055; border: 1px solid #f9731640; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #f97316; font-weight: 600; line-height: 1.6; }
+.note-box     { margin-top: 8px; padding: 8px 12px; background: #1a120022; border: 1px solid #f9731430; border-radius: 8px; font-size: 12px; color: #f97316; line-height: 1.5; }
+.macros-bar   { margin-top: 10px; padding: 8px 12px; background: #0d0d0d; border-radius: 8px; font-size: 11px; color: #666; font-family: monospace; }
+.green-box    { background: #0f1a0f; border: 1px solid #1e3a1e; border-radius: 14px; padding: 16px; margin-top: 12px; }
+.green-title  { font-size: 12px; font-weight: 700; color: #22c55e; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.purple-box   { background: #0f0f1e; border: 1px solid #2e1e3e; border-radius: 14px; padding: 16px; margin-top: 12px; }
+.purple-title { font-size: 12px; font-weight: 700; color: #a78bfa; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.info-text    { font-size: 13px; color: #888; line-height: 1.7; }
+
+/* ── Stats grid ── */
+.stats-grid  { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+.stat-card   { background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 14px 10px; text-align: center; }
+.stat-val    { font-size: 18px; font-weight: 800; color: #f97316; }
+.stat-label  { font-size: 10px; color: #888; margin-top: 2px; }
+.stat-sub    { font-size: 10px; color: #444; }
+
+/* ── Diet targets ── */
+.targets-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.target-card  { background: #111; border-radius: 8px; padding: 10px 8px; text-align: center; }
+.target-val   { font-size: 13px; font-weight: 700; color: #fff; }
+.target-label { font-size: 10px; color: #555; margin-top: 2px; }
+
+/* ── Pillar grid ── */
+.pillar-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+.pillar-card  { background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 14px; }
+.pillar-icon  { font-size: 20px; margin-bottom: 6px; }
+.pillar-title { font-weight: 700; font-size: 13px; color: #fff; margin-bottom: 4px; }
+.pillar-desc  { font-size: 11px; color: #666; line-height: 1.5; }
+
+/* ── Change cards ── */
+.change-card  { background: #111; border: 1px solid #1e1e1e; border-left: 3px solid #f97316; border-radius: 10px; padding: 12px 14px; display: flex; gap: 10px; margin-bottom: 8px; }
+.change-title { font-weight: 700; font-size: 13px; color: #fff; margin-bottom: 2px; }
+.change-desc  { font-size: 12px; color: #888; line-height: 1.5; }
+
+/* ── Timeline ── */
+.tl-wrap { position: relative; padding-left: 28px; }
+.tl-bar  { position: absolute; left: 11px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, #f97316, #f9731600); }
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-dot  { position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: #f97316; border: 2px solid #0a0a0a; z-index: 1; }
+.tl-card { background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 14px; }
+.tl-period { font-size: 10px; color: #f97316; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.tl-icon   { font-size: 20px; margin-bottom: 4px; }
+.tl-text   { font-size: 13px; color: #e5e5e5; font-weight: 600; line-height: 1.5; }
+
+/* ── Save box ── */
+.save-box   { background: #111; border: 1px solid #2e1e3e; border-radius: 14px; padding: 16px; margin-bottom: 20px; }
+.save-title { font-size: 12px; font-weight: 700; color: #a78bfa; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.save-step  { display: flex; gap: 10px; padding: 5px 0; font-size: 13px; color: #888; line-height: 1.5; }
+.save-num   { color: #a78bfa; font-weight: 800; min-width: 18px; }
+
+/* ── Bottom Nav ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #0f0f0f;
+  border-top: 1px solid #1e1e1e;
+  display: flex;
+  z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-family: inherit;
+}
+.nav-icon  { font-size: 18px; }
+.nav-label { font-size: 9px; font-weight: 600; letter-spacing: 0.5px; color: #555; text-transform: uppercase; }
+.nav-btn.active .nav-label { color: #f97316; }
+
+/* ── Pages ── */
+.page        { display: none; }
+.page.active { display: block; }

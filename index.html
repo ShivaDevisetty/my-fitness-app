@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Shiva's Plan"/>
+  <meta name="theme-color" content="#0a0a0a"/>
+  <title>Shiva's Shred Plan</title>
+  <link rel="stylesheet" href="/src/styles/main.css"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <span>🏋</span>
+      <span class="header-eyebrow">Modified Plan</span>
+    </div>
+    <h1 id="header-h1"></h1>
+    <p class="header-sub" id="header-sub"></p>
+    <div class="tabs">
+      <button class="tab active" id="tab-overview"  onclick="showPage('overview')">Overview</button>
+      <button class="tab"        id="tab-workout"   onclick="showPage('workout')">Workout</button>
+      <button class="tab"        id="tab-diet"      onclick="showPage('diet')">Diet</button>
+      <button class="tab"        id="tab-supps"     onclick="showPage('supps')">Supplements</button>
+      <button class="tab"        id="tab-timeline"  onclick="showPage('timeline')">Timeline</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="nav-btn active" id="nav-overview" onclick="showPage('overview')"><span class="nav-icon">📊</span><span class="nav-label">Overview</span></button>
+    <button class="nav-btn"        id="nav-workout"  onclick="showPage('workout')"><span class="nav-icon">🏋</span><span class="nav-label">Workout</span></button>
+    <button class="nav-btn"        id="nav-diet"     onclick="showPage('diet')"><span class="nav-icon">🥗</span><span class="nav-label">Diet</span></button>
+    <button class="nav-btn"        id="nav-supps"    onclick="showPage('supps')"><span class="nav-icon">💊</span><span class="nav-label">Supps</span></button>
+    <button class="nav-btn"        id="nav-timeline" onclick="showPage('timeline')"><span class="nav-icon">📅</span><span class="nav-label">Timeline</span></button>
+  </div>
+
+  <!-- OVERVIEW PAGE -->
+  <div class="page active" id="page-overview">
+    <div class="content">
+      <div class="save-box">
+        <div class="save-title">📱 Save to Home Screen</div>
+        <div class="save-step"><span class="save-num">1</span><span><strong style="color:#c7d2fe">iPhone:</strong> Open live URL in Safari → Share → "Add to Home Screen"</span></div>
+        <div class="save-step"><span class="save-num">2</span><span><strong style="color:#c7d2fe">Android:</strong> Open in Chrome → Menu (⋮) → "Add to Home screen"</span></div>
+        <div class="save-step"><span class="save-num">3</span><span>Opens full screen like a native app, no browser bar</span></div>
+      </div>
+      <p class="section-label">Your Stats</p>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-val" id="stat-cal"></div><div class="stat-label">Calories</div><div class="stat-sub">kcal/day</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-pro"></div><div class="stat-label">Protein</div><div class="stat-sub">daily</div></div>
+        <div class="stat-card"><div class="stat-val" id="stat-car"></div><div class="stat-label">Cardio</div><div class="stat-sub">per week</div></div>
+      </div>
+      <p class="section-label">What Was Modified</p>
+      <div id="changes-list"></div>
+      <p class="section-label">Recovery Pillars</p>
+      <div class="pillar-grid" id="pillars-grid"></div>
+    </div>
+  </div>
+
+  <!-- WORKOUT PAGE -->
+  <div class="page" id="page-workout">
+    <div class="content">
+      <p style="font-size:12px;color:#666;margin-bottom:14px">
+        Tap a day to expand.
+        <span style="color:#f97316">Orange = modified</span> ·
+        <span style="color:#22c55e">Green = unchanged</span>
+      </p>
+      <div id="workout-list"></div>
+      <div class="green-box">
+        <div class="green-title">Zone 2 Cardio Guide</div>
+        <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6">
+          Zone 2 = 60–70% max HR. You can hold a conversation but breathing is elevated.<br>
+          <strong style="color:#fff">Your target: 116–136 bpm</strong> (Max HR ~194)
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Incline Treadmill</span> — 3–5° incline, 5–6 km/h</div>
+          <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Stationary Bike</span> — Moderate resistance, easy on joints post-leg day</div>
+          <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Brisk Walk Outside</span> — For Sunday NEAT, no gym needed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIET PAGE -->
+  <div class="page" id="page-diet">
+    <div class="content">
+      <p class="section-label">Daily Targets</p>
+      <div class="targets-grid" id="diet-targets"></div>
+      <p style="font-size:12px;color:#666;margin-bottom:14px">
+        Tap a meal to expand. <span style="color:#f97316">Orange = modified</span>
+      </p>
+      <div id="meals-list"></div>
+      <div style="background:#111;border:1px solid #2a2a1e;border-radius:14px;padding:16px;margin-top:8px">
+        <div style="font-size:12px;color:#f97316;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">
+          Optional — Visceral Fat Add-On
+        </div>
+        <p class="info-text">
+          <strong style="color:#fff">Apple Cider Vinegar:</strong> 10–15ml in 200ml water,
+          15 min before Meal 2 and Meal 4. Moderate evidence for visceral fat and insulin sensitivity.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPPLEMENTS PAGE -->
+  <div class="page" id="page-supps">
+    <div class="content">
+      <p style="font-size:13px;color:#666;margin-bottom:16px;line-height:1.6">
+        Timings based on your actual bottle labels. Take with water — never dry-swallow.
+      </p>
+      <div id="supp-list"></div>
+
+      <!-- Quick Reference -->
+      <div class="green-box">
+        <div class="green-title">Quick Daily Reference</div>
+        <div style="font-size:12px;color:#888;line-height:2.4">
+          <div>🍋 <strong style="color:#ccc">First thing:</strong> Lemon water → Glutathione 500mg (empty stomach)</div>
+          <div>🍳 <strong style="color:#ccc">Meal 1:</strong> Vit D3 5000IU + Vit E + Omega-3 (2 softgels) + Spirulina (6 tabs)</div>
+          <div>🍗 <strong style="color:#ccc">Meal 2:</strong> Saw Palmetto 320mg (1 softgel)</div>
+          <div>🏋 <strong style="color:#ccc">After Meal 3:</strong> BULK Pre-Workout ½–1 scoop, 20–30 min before gym</div>
+          <div>💪 <strong style="color:#ccc">Post-workout:</strong> Creatine 5g in whey shake</div>
+          <div>🌙 <strong style="color:#ccc">Meal 4:</strong> Omega-3 (2 softgels) + KSM-66 Ashwagandha (1 cap)</div>
+          <div>🛏 <strong style="color:#ccc">Before bed:</strong> ZMA 3 caps — empty stomach, 30–60 min before sleep</div>
+          <div>🌾 <strong style="color:#ccc">In Meal 1 oats:</strong> Psyllium Husk 5g (can increase to 9g = 1 tbsp)</div>
+        </div>
+      </div>
+
+      <!-- Important Notes -->
+      <div class="purple-box">
+        <div class="purple-title">⚠ Important Notes — From Labels</div>
+        <p class="info-text">
+          • <strong style="color:#c7d2fe">Glutathione — label says "empty stomach"</strong> — food reduces absorption ~30%. Lemon water first boosts it via Vitamin C<br><br>
+          • <strong style="color:#c7d2fe">ZMA — label says "Men: 3 caps before bed"</strong> — confirmed. Empty stomach essential. Calcium blocks zinc completely<br><br>
+          • <strong style="color:#c7d2fe">BULK — start at ½ scoop</strong> — label instruction. Beta-Alanine tingling is normal and harmless<br><br>
+          • <strong style="color:#c7d2fe">Psyllium Husk — label serving is 9g (1 tbsp)</strong> — plan uses 5g to start. Increase to 9g when comfortable<br><br>
+          • <strong style="color:#c7d2fe">Spirulina — refrigerate after opening</strong> — label instruction. Keep in fridge to preserve potency<br><br>
+          • <strong style="color:#c7d2fe">Omega-3 total: 2560mg/day</strong> — 2 softgels Meal 1 + 2 softgels Meal 4 = EPA 1300mg + DHA 900mg<br><br>
+          • <strong style="color:#c7d2fe">KSM-66 standardized to 5% withanolides</strong> — premium extract. Takes 6–8 weeks. Never skip days
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE PAGE -->
+  <div class="page" id="page-timeline">
+    <div class="content">
+      <p class="info-text" style="margin-bottom:20px">
+        Following the full modified plan — training, diet, supplements, sleep, and steps all consistent.
+      </p>
+      <div class="tl-wrap">
+        <div class="tl-bar"></div>
+        <div id="timeline-list"></div>
+      </div>
+      <div class="purple-box">
+        <div class="purple-title">About Face Fat</div>
+        <p class="info-text">
+          Face fat cannot be spot-reduced — it's genetic distribution. It will slim automatically
+          as overall body fat % drops. By Month 4–6 you'll see clear jaw and cheekbone definition.
+        </p>
+      </div>
+      <div class="green-box">
+        <div class="green-title">Track These Monthly</div>
+        <div style="font-size:13px;color:#888;line-height:2.3">
+          <div>✓ Waist measurement at navel (cm)</div>
+          <div>✓ Morning fasted weight</div>
+          <div>✓ Progress photos — same lighting, same time</div>
+          <div>✓ Key lifts (Squat, Deadlift, Bench) progressing</div>
+          <div>✓ How clothes fit around waist and face</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
