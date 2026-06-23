@@ -1,179 +1,504 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <meta name="apple-mobile-web-app-title" content="Shiva's Plan"/>
-  <meta name="theme-color" content="#0a0a0a"/>
-  <title>Shiva's Shred Plan</title>
-  <link rel="stylesheet" href="/src/styles/main.css"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Shiva's Plan"/>
+<meta name="theme-color" content="#0a0a0a"/>
+<title>Shiva's Shred Plan</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:#0a0a0a;color:#e5e5e5;min-height:100vh;padding-bottom:80px;}
+.header{background:linear-gradient(135deg,#1a1a2e,#0f0f1a);padding:52px 18px 0;border-bottom:1px solid #1e1e2e;position:sticky;top:0;z-index:100;}
+.header-top{display:flex;align-items:center;gap:8px;margin-bottom:2px;}
+.header-eyebrow{font-size:10px;font-weight:700;letter-spacing:3px;color:#f97316;text-transform:uppercase;}
+.header h1{font-size:22px;font-weight:800;color:#fff;margin-bottom:2px;}
+.header-sub{font-size:12px;color:#666;margin-bottom:14px;}
+.tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{background:none;border:none;cursor:pointer;padding:10px 16px;font-size:12px;font-weight:600;white-space:nowrap;color:#555;border-bottom:2px solid transparent;transition:all .2s;font-family:inherit;}
+.tab.active{color:#f97316;border-bottom:2px solid #f97316;}
+.content{max-width:680px;margin:0 auto;padding:20px 14px 0;}
+.section-label{font-size:11px;font-weight:700;letter-spacing:2px;color:#f97316;text-transform:uppercase;margin-bottom:12px;margin-top:20px;}
+.card{background:#111;border:1px solid #1e1e1e;border-radius:14px;overflow:hidden;margin-bottom:10px;}
+.card-header{width:100%;background:none;border:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;font-family:inherit;}
+.card-left{display:flex;align-items:center;gap:12px;text-align:left;}
+.dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.card-day{font-size:10px;color:#555;font-weight:600;letter-spacing:1px;}
+.card-title{font-size:14px;font-weight:700;color:#fff;}
+.card-right{display:flex;align-items:center;gap:6px;}
+.card-body{padding:0 16px 16px;border-top:1px solid #1a1a1a;display:none;}
+.card-body.open{display:block;}
+.chevron{color:#444;font-size:11px;}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;}
+.badge-orange{background:#f9731620;color:#f97316;}
+.badge-green{background:#22c55e20;color:#22c55e;}
+.ex-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #141414;}
+.ex-row:last-child{border-bottom:none;}
+.ex-name{font-size:13px;color:#ccc;}
+.ex-sets{font-size:12px;color:#777;font-weight:600;}
+.abs-label{margin-top:10px;font-size:10px;color:#f97316;letter-spacing:1px;font-weight:700;padding:4px 0;}
+.ing-row{font-size:13px;color:#ccc;padding:6px 0;border-bottom:1px solid #141414;line-height:1.5;}
+.ing-row:last-child{border-bottom:none;}
+.ing-row.new-item{color:#f97316;font-weight:700;background:#1a120022;padding:7px 10px;border-radius:8px;border:1px solid #f9731630;margin:4px 0;}
+.rc-note{font-size:11px;color:#666;display:block;margin-top:1px;}
+.option-divider{font-size:11px;color:#f97316;font-weight:700;margin:6px 0 2px;}
+.supp-section{background:#111;border:1px solid #1e1e2e;border-radius:14px;padding:16px;margin-bottom:12px;}
+.supp-section-title{font-size:12px;font-weight:700;color:#a5b4fc;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.supp-row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid #181828;}
+.supp-row:last-child{border-bottom:none;}
+.supp-left{flex:1;}
+.supp-name{font-size:13px;color:#c7d2fe;font-weight:600;}
+.supp-detail{font-size:11px;color:#666;margin-top:3px;line-height:1.5;padding-right:8px;}
+.supp-right{text-align:right;min-width:80px;}
+.supp-dose{font-size:12px;color:#818cf8;font-weight:700;}
+.supp-timing{font-size:10px;color:#555;margin-top:2px;}
+.addition-box{margin-top:12px;background:#1a120055;border:1px solid #f9731640;border-radius:10px;padding:10px 12px;font-size:12px;color:#f97316;font-weight:600;line-height:1.6;}
+.note-box{margin-top:8px;padding:8px 12px;background:#1a120022;border:1px solid #f9731430;border-radius:8px;font-size:12px;color:#f97316;line-height:1.5;}
+.macros-bar{margin-top:10px;padding:8px 12px;background:#0d0d0d;border-radius:8px;font-size:11px;color:#666;font-family:monospace;}
+.green-box{background:#0f1a0f;border:1px solid #1e3a1e;border-radius:14px;padding:16px;margin-top:12px;}
+.green-title{font-size:12px;font-weight:700;color:#22c55e;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.purple-box{background:#0f0f1e;border:1px solid #2e1e3e;border-radius:14px;padding:16px;margin-top:12px;}
+.purple-title{font-size:12px;font-weight:700;color:#a78bfa;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.info-text{font-size:13px;color:#888;line-height:1.7;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px;}
+.stat-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px 10px;text-align:center;}
+.stat-val{font-size:18px;font-weight:800;color:#f97316;}
+.stat-label{font-size:10px;color:#888;margin-top:2px;}
+.stat-sub{font-size:10px;color:#444;}
+.targets-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+.target-card{background:#111;border-radius:8px;padding:10px 8px;text-align:center;}
+.target-val{font-size:13px;font-weight:700;color:#fff;}
+.target-label{font-size:10px;color:#555;margin-top:2px;}
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}
+.pillar-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px;}
+.pillar-icon{font-size:20px;margin-bottom:6px;}
+.pillar-title{font-weight:700;font-size:13px;color:#fff;margin-bottom:4px;}
+.pillar-desc{font-size:11px;color:#666;line-height:1.5;}
+.change-card{background:#111;border:1px solid #1e1e1e;border-left:3px solid #f97316;border-radius:10px;padding:12px 14px;display:flex;gap:10px;margin-bottom:8px;}
+.change-title{font-weight:700;font-size:13px;color:#fff;margin-bottom:2px;}
+.change-desc{font-size:12px;color:#888;line-height:1.5;}
+.tl-wrap{position:relative;padding-left:28px;}
+.tl-bar{position:absolute;left:11px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,#f97316,#f9731600);}
+.tl-item{position:relative;margin-bottom:20px;}
+.tl-dot{position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;background:#f97316;border:2px solid #0a0a0a;z-index:1;}
+.tl-card{background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:14px;}
+.tl-period{font-size:10px;color:#f97316;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.tl-icon{font-size:20px;margin-bottom:4px;}
+.tl-text{font-size:13px;color:#e5e5e5;font-weight:600;line-height:1.5;}
+.save-box{background:#111;border:1px solid #2e1e3e;border-radius:14px;padding:16px;margin-bottom:20px;}
+.save-title{font-size:12px;font-weight:700;color:#a78bfa;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.save-step{display:flex;gap:10px;padding:5px 0;font-size:13px;color:#888;line-height:1.5;}
+.save-num{color:#a78bfa;font-weight:800;min-width:18px;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;border-top:1px solid #1e1e1e;display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom);}
+.nav-btn{flex:1;background:none;border:none;cursor:pointer;padding:12px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:inherit;}
+.nav-icon{font-size:18px;}
+.nav-label{font-size:9px;font-weight:600;letter-spacing:.5px;color:#555;text-transform:uppercase;}
+.nav-btn.active .nav-label{color:#f97316;}
+.page{display:none;}
+.page.active{display:block;}
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-top">
-      <span>🏋</span>
-      <span class="header-eyebrow">Modified Plan</span>
-    </div>
-    <h1 id="header-h1"></h1>
-    <p class="header-sub" id="header-sub"></p>
-    <div class="tabs">
-      <button class="tab active" id="tab-overview"  onclick="showPage('overview')">Overview</button>
-      <button class="tab"        id="tab-workout"   onclick="showPage('workout')">Workout</button>
-      <button class="tab"        id="tab-diet"      onclick="showPage('diet')">Diet</button>
-      <button class="tab"        id="tab-supps"     onclick="showPage('supps')">Supplements</button>
-      <button class="tab"        id="tab-timeline"  onclick="showPage('timeline')">Timeline</button>
-    </div>
+<div class="header">
+  <div class="header-top"><span>🏋</span><span class="header-eyebrow">Modified Plan</span></div>
+  <h1>Shiva's Shred Plan</h1>
+  <p class="header-sub">76kg · 5'5" · 26yr · Six Pack + Visceral Fat Loss</p>
+  <div class="tabs">
+    <button class="tab active" id="tab-overview"  onclick="showPage('overview')">Overview</button>
+    <button class="tab"        id="tab-workout"   onclick="showPage('workout')">Workout</button>
+    <button class="tab"        id="tab-diet"      onclick="showPage('diet')">Diet</button>
+    <button class="tab"        id="tab-supps"     onclick="showPage('supps')">Supplements</button>
+    <button class="tab"        id="tab-timeline"  onclick="showPage('timeline')">Timeline</button>
   </div>
+</div>
 
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <button class="nav-btn active" id="nav-overview" onclick="showPage('overview')"><span class="nav-icon">📊</span><span class="nav-label">Overview</span></button>
-    <button class="nav-btn"        id="nav-workout"  onclick="showPage('workout')"><span class="nav-icon">🏋</span><span class="nav-label">Workout</span></button>
-    <button class="nav-btn"        id="nav-diet"     onclick="showPage('diet')"><span class="nav-icon">🥗</span><span class="nav-label">Diet</span></button>
-    <button class="nav-btn"        id="nav-supps"    onclick="showPage('supps')"><span class="nav-icon">💊</span><span class="nav-label">Supps</span></button>
-    <button class="nav-btn"        id="nav-timeline" onclick="showPage('timeline')"><span class="nav-icon">📅</span><span class="nav-label">Timeline</span></button>
+<div class="bottom-nav">
+  <button class="nav-btn active" id="nav-overview" onclick="showPage('overview')"><span class="nav-icon">📊</span><span class="nav-label">Overview</span></button>
+  <button class="nav-btn" id="nav-workout"  onclick="showPage('workout')"><span class="nav-icon">🏋</span><span class="nav-label">Workout</span></button>
+  <button class="nav-btn" id="nav-diet"     onclick="showPage('diet')"><span class="nav-icon">🥗</span><span class="nav-label">Diet</span></button>
+  <button class="nav-btn" id="nav-supps"    onclick="showPage('supps')"><span class="nav-icon">💊</span><span class="nav-label">Supps</span></button>
+  <button class="nav-btn" id="nav-timeline" onclick="showPage('timeline')"><span class="nav-icon">📅</span><span class="nav-label">Timeline</span></button>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="page active" id="page-overview"><div class="content">
+  <div class="save-box">
+    <div class="save-title">📱 Save to Home Screen</div>
+    <div class="save-step"><span class="save-num">1</span><span><strong style="color:#c7d2fe">iPhone:</strong> Open URL in Safari → Share → "Add to Home Screen"</span></div>
+    <div class="save-step"><span class="save-num">2</span><span><strong style="color:#c7d2fe">Android:</strong> Open in Chrome → Menu (⋮) → "Add to Home screen"</span></div>
+    <div class="save-step"><span class="save-num">3</span><span>Opens full screen like a native app</span></div>
   </div>
-
-  <!-- OVERVIEW PAGE -->
-  <div class="page active" id="page-overview">
-    <div class="content">
-      <div class="save-box">
-        <div class="save-title">📱 Save to Home Screen</div>
-        <div class="save-step"><span class="save-num">1</span><span><strong style="color:#c7d2fe">iPhone:</strong> Open live URL in Safari → Share → "Add to Home Screen"</span></div>
-        <div class="save-step"><span class="save-num">2</span><span><strong style="color:#c7d2fe">Android:</strong> Open in Chrome → Menu (⋮) → "Add to Home screen"</span></div>
-        <div class="save-step"><span class="save-num">3</span><span>Opens full screen like a native app, no browser bar</span></div>
-      </div>
-      <p class="section-label">Your Stats</p>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-val" id="stat-cal"></div><div class="stat-label">Calories</div><div class="stat-sub">kcal/day</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-pro"></div><div class="stat-label">Protein</div><div class="stat-sub">daily</div></div>
-        <div class="stat-card"><div class="stat-val" id="stat-car"></div><div class="stat-label">Cardio</div><div class="stat-sub">per week</div></div>
-      </div>
-      <p class="section-label">What Was Modified</p>
-      <div id="changes-list"></div>
-      <p class="section-label">Recovery Pillars</p>
-      <div class="pillar-grid" id="pillars-grid"></div>
-    </div>
+  <p class="section-label">Your Stats</p>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-val">~2,220</div><div class="stat-label">Calories</div><div class="stat-sub">kcal/day</div></div>
+    <div class="stat-card"><div class="stat-val">~183g</div><div class="stat-label">Protein</div><div class="stat-sub">daily</div></div>
+    <div class="stat-card"><div class="stat-val">3–4×</div><div class="stat-label">Cardio</div><div class="stat-sub">per week</div></div>
   </div>
+  <p class="section-label">What Was Modified</p>
+  <div class="change-card"><span style="color:#f97316;font-size:14px">✦</span><div><div class="change-title">Zone 2 Cardio Added</div><div class="change-desc">Mon, Wed, Fri after lifting + Sat standalone — targets visceral fat directly</div></div></div>
+  <div class="change-card"><span style="color:#f97316;font-size:14px">✦</span><div><div class="change-title">Pre-Workout Protein Fixed</div><div class="change-desc">Replaced Greek Yogurt with 2 whole eggs + ½ scoop whey — whole food, ~25g protein added</div></div></div>
+  <div class="change-card"><span style="color:#f97316;font-size:14px">✦</span><div><div class="change-title">Raw + Cooked Weights Added</div><div class="change-desc">All meals now show exact raw weight and cooked weight for accurate prep</div></div></div>
+  <div class="change-card"><span style="color:#f97316;font-size:14px">✦</span><div><div class="change-title">Supplements — Label Accurate</div><div class="change-desc">All 11 supplements mapped from actual bottle labels with exact doses and timings</div></div></div>
+  <div class="change-card"><span style="color:#f97316;font-size:14px">✦</span><div><div class="change-title">Daily Step Target</div><div class="change-desc">8,000–10,000 steps daily for passive NEAT fat burn</div></div></div>
+  <p class="section-label">Recovery Pillars</p>
+  <div class="pillar-grid">
+    <div class="pillar-card"><div class="pillar-icon">😴</div><div class="pillar-title">Sleep 7–8 hrs</div><div class="pillar-desc">Cortisol from poor sleep directly causes visceral fat storage</div></div>
+    <div class="pillar-card"><div class="pillar-icon">🚶</div><div class="pillar-title">10k Steps</div><div class="pillar-desc">Burns 200–400 kcal/day passively without gym</div></div>
+    <div class="pillar-card"><div class="pillar-icon">🧘</div><div class="pillar-title">Manage Stress</div><div class="pillar-desc">High cortisol = stubborn belly fat. Ashwagandha helps here</div></div>
+    <div class="pillar-card"><div class="pillar-icon">💧</div><div class="pillar-title">3.5–4L Water</div><div class="pillar-desc">Essential for fat metabolism and supplement absorption</div></div>
+  </div>
+</div></div>
 
-  <!-- WORKOUT PAGE -->
-  <div class="page" id="page-workout">
-    <div class="content">
-      <p style="font-size:12px;color:#666;margin-bottom:14px">
-        Tap a day to expand.
-        <span style="color:#f97316">Orange = modified</span> ·
-        <span style="color:#22c55e">Green = unchanged</span>
-      </p>
-      <div id="workout-list"></div>
-      <div class="green-box">
-        <div class="green-title">Zone 2 Cardio Guide</div>
-        <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6">
-          Zone 2 = 60–70% max HR. You can hold a conversation but breathing is elevated.<br>
-          <strong style="color:#fff">Your target: 116–136 bpm</strong> (Max HR ~194)
-        </p>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Incline Treadmill</span> — 3–5° incline, 5–6 km/h</div>
-          <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Stationary Bike</span> — Moderate resistance, easy on joints post-leg day</div>
-          <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Brisk Walk Outside</span> — For Sunday NEAT, no gym needed</div>
-        </div>
-      </div>
+<!-- ===== WORKOUT ===== -->
+<div class="page" id="page-workout"><div class="content">
+  <p style="font-size:12px;color:#666;margin-bottom:14px">Tap a day to expand. <span style="color:#f97316">Orange = modified</span> · <span style="color:#22c55e">Green = unchanged</span></p>
+  <div id="workout-list"></div>
+  <div class="green-box">
+    <div class="green-title">Zone 2 Cardio Guide</div>
+    <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6">Zone 2 = 60–70% max HR. You can hold a conversation but breathing is elevated.<br><strong style="color:#fff">Your target: 116–136 bpm</strong> (Max HR ~194)</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Incline Treadmill</span> — 3–5° incline, 5–6 km/h</div>
+      <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Stationary Bike</span> — Moderate resistance, easy on joints post-leg day</div>
+      <div style="font-size:12px;color:#888"><span style="color:#22c55e;font-weight:700">Brisk Walk Outside</span> — For Sunday NEAT, no gym needed</div>
     </div>
   </div>
+</div></div>
 
-  <!-- DIET PAGE -->
-  <div class="page" id="page-diet">
-    <div class="content">
-      <p class="section-label">Daily Targets</p>
-      <div class="targets-grid" id="diet-targets"></div>
-      <p style="font-size:12px;color:#666;margin-bottom:14px">
-        Tap a meal to expand. <span style="color:#f97316">Orange = modified</span>
-      </p>
-      <div id="meals-list"></div>
-      <div style="background:#111;border:1px solid #2a2a1e;border-radius:14px;padding:16px;margin-top:8px">
-        <div style="font-size:12px;color:#f97316;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">
-          Optional — Visceral Fat Add-On
-        </div>
-        <p class="info-text">
-          <strong style="color:#fff">Apple Cider Vinegar:</strong> 10–15ml in 200ml water,
-          15 min before Meal 2 and Meal 4. Moderate evidence for visceral fat and insulin sensitivity.
-        </p>
-      </div>
+<!-- ===== DIET ===== -->
+<div class="page" id="page-diet"><div class="content">
+  <p class="section-label">Daily Targets</p>
+  <div class="targets-grid">
+    <div class="target-card"><div class="target-val">~2,220</div><div class="target-label">Calories</div></div>
+    <div class="target-card"><div class="target-val">~183g</div><div class="target-label">Protein</div></div>
+    <div class="target-card"><div class="target-val">~185g</div><div class="target-label">Carbs</div></div>
+    <div class="target-card"><div class="target-val">~57g</div><div class="target-label">Fat</div></div>
+    <div class="target-card"><div class="target-val">~35g</div><div class="target-label">Fiber</div></div>
+    <div class="target-card"><div class="target-val">3.5–4L</div><div class="target-label">Water</div></div>
+  </div>
+  <p style="font-size:12px;color:#666;margin-bottom:14px">Tap a meal to expand. <span style="color:#f97316">Orange = modified</span></p>
+  <div id="meals-list"></div>
+  <div style="background:#111;border:1px solid #2a2a1e;border-radius:14px;padding:16px;margin-top:8px">
+    <div style="font-size:12px;color:#f97316;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Optional — Visceral Fat Add-On</div>
+    <p class="info-text"><strong style="color:#fff">Apple Cider Vinegar:</strong> 10–15ml in 200ml water, 15 min before Meal 2 and Meal 4.</p>
+  </div>
+</div></div>
+
+<!-- ===== SUPPLEMENTS ===== -->
+<div class="page" id="page-supps"><div class="content">
+  <p style="font-size:13px;color:#666;margin-bottom:16px;line-height:1.6">Timings based on your actual bottle labels. Take with water — never dry-swallow.</p>
+  <div id="supp-list"></div>
+  <div class="green-box">
+    <div class="green-title">Quick Daily Reference</div>
+    <div style="font-size:12px;color:#888;line-height:2.4">
+      <div>🍋 <strong style="color:#ccc">First thing:</strong> Lemon water → Glutathione 500mg (empty stomach)</div>
+      <div>🍳 <strong style="color:#ccc">Meal 1:</strong> Vit D3 5000IU + Vit E + Omega-3 (2 softgels) + Spirulina (6 tabs)</div>
+      <div>🍗 <strong style="color:#ccc">Meal 2:</strong> Saw Palmetto 320mg (1 softgel)</div>
+      <div>🏋 <strong style="color:#ccc">After Meal 3:</strong> BULK Pre-Workout ½–1 scoop, 20–30 min before gym</div>
+      <div>💪 <strong style="color:#ccc">Post-workout:</strong> Creatine 5g in whey shake</div>
+      <div>🌙 <strong style="color:#ccc">Meal 4:</strong> Omega-3 (2 softgels) + KSM-66 Ashwagandha (1 cap)</div>
+      <div>🛏 <strong style="color:#ccc">Before bed:</strong> ZMA 3 caps — empty stomach, 30–60 min before sleep</div>
+      <div>🌾 <strong style="color:#ccc">In Meal 1 oats:</strong> Psyllium Husk 5g (can go up to 9g = 1 tbsp)</div>
     </div>
   </div>
+  <div class="purple-box">
+    <div class="purple-title">⚠ Important Notes — From Labels</div>
+    <p class="info-text">
+      • <strong style="color:#c7d2fe">Glutathione — label says "empty stomach"</strong> — food reduces absorption ~30%<br><br>
+      • <strong style="color:#c7d2fe">ZMA — label says "Men: 3 caps before bed"</strong> — calcium in food blocks zinc completely<br><br>
+      • <strong style="color:#c7d2fe">BULK — start at ½ scoop</strong> — label instruction. Beta-Alanine tingling is normal<br><br>
+      • <strong style="color:#c7d2fe">Psyllium Husk — label serving is 9g (1 tbsp)</strong> — plan uses 5g to start<br><br>
+      • <strong style="color:#c7d2fe">Spirulina — refrigerate after opening</strong> — label instruction<br><br>
+      • <strong style="color:#c7d2fe">Omega-3 total: 2560mg/day</strong> — 2 softgels Meal 1 + 2 softgels Meal 4<br><br>
+      • <strong style="color:#c7d2fe">KSM-66 — takes 6–8 weeks</strong> to show full effect. Never skip days
+    </p>
+  </div>
+</div></div>
 
-  <!-- SUPPLEMENTS PAGE -->
-  <div class="page" id="page-supps">
-    <div class="content">
-      <p style="font-size:13px;color:#666;margin-bottom:16px;line-height:1.6">
-        Timings based on your actual bottle labels. Take with water — never dry-swallow.
-      </p>
-      <div id="supp-list"></div>
-
-      <!-- Quick Reference -->
-      <div class="green-box">
-        <div class="green-title">Quick Daily Reference</div>
-        <div style="font-size:12px;color:#888;line-height:2.4">
-          <div>🍋 <strong style="color:#ccc">First thing:</strong> Lemon water → Glutathione 500mg (empty stomach)</div>
-          <div>🍳 <strong style="color:#ccc">Meal 1:</strong> Vit D3 5000IU + Vit E + Omega-3 (2 softgels) + Spirulina (6 tabs)</div>
-          <div>🍗 <strong style="color:#ccc">Meal 2:</strong> Saw Palmetto 320mg (1 softgel)</div>
-          <div>🏋 <strong style="color:#ccc">After Meal 3:</strong> BULK Pre-Workout ½–1 scoop, 20–30 min before gym</div>
-          <div>💪 <strong style="color:#ccc">Post-workout:</strong> Creatine 5g in whey shake</div>
-          <div>🌙 <strong style="color:#ccc">Meal 4:</strong> Omega-3 (2 softgels) + KSM-66 Ashwagandha (1 cap)</div>
-          <div>🛏 <strong style="color:#ccc">Before bed:</strong> ZMA 3 caps — empty stomach, 30–60 min before sleep</div>
-          <div>🌾 <strong style="color:#ccc">In Meal 1 oats:</strong> Psyllium Husk 5g (can increase to 9g = 1 tbsp)</div>
-        </div>
-      </div>
-
-      <!-- Important Notes -->
-      <div class="purple-box">
-        <div class="purple-title">⚠ Important Notes — From Labels</div>
-        <p class="info-text">
-          • <strong style="color:#c7d2fe">Glutathione — label says "empty stomach"</strong> — food reduces absorption ~30%. Lemon water first boosts it via Vitamin C<br><br>
-          • <strong style="color:#c7d2fe">ZMA — label says "Men: 3 caps before bed"</strong> — confirmed. Empty stomach essential. Calcium blocks zinc completely<br><br>
-          • <strong style="color:#c7d2fe">BULK — start at ½ scoop</strong> — label instruction. Beta-Alanine tingling is normal and harmless<br><br>
-          • <strong style="color:#c7d2fe">Psyllium Husk — label serving is 9g (1 tbsp)</strong> — plan uses 5g to start. Increase to 9g when comfortable<br><br>
-          • <strong style="color:#c7d2fe">Spirulina — refrigerate after opening</strong> — label instruction. Keep in fridge to preserve potency<br><br>
-          • <strong style="color:#c7d2fe">Omega-3 total: 2560mg/day</strong> — 2 softgels Meal 1 + 2 softgels Meal 4 = EPA 1300mg + DHA 900mg<br><br>
-          • <strong style="color:#c7d2fe">KSM-66 standardized to 5% withanolides</strong> — premium extract. Takes 6–8 weeks. Never skip days
-        </p>
-      </div>
+<!-- ===== TIMELINE ===== -->
+<div class="page" id="page-timeline"><div class="content">
+  <p class="info-text" style="margin-bottom:20px">Following the full modified plan — training, diet, supplements, sleep, and steps all consistent.</p>
+  <div class="tl-wrap">
+    <div class="tl-bar"></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-period">Month 1–2</div><div class="tl-icon">⚡</div><div class="tl-text">Energy up, strength improving, bloating reduces, sleep deeper (Ashwagandha + ZMA kicking in)</div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-period">Month 3–4</div><div class="tl-icon">📉</div><div class="tl-text">Visible waist narrowing, visceral fat reducing measurably, skin improving (Glutathione + Spirulina)</div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-period">Month 4–6</div><div class="tl-icon">😮</div><div class="tl-text">Face slimming noticeably, jaw definition appearing, abs outline starting to show</div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-period">Month 8–12</div><div class="tl-icon">🔥</div><div class="tl-text">Six pack visible — requires reaching ~11–12% body fat. Vascularity appearing.</div></div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><div class="tl-period">Month 12–18</div><div class="tl-icon">🏆</div><div class="tl-text">Shredded, vascular, fully conditioned physique.</div></div></div>
+  </div>
+  <div class="purple-box">
+    <div class="purple-title">About Face Fat</div>
+    <p class="info-text">Face fat cannot be spot-reduced. It will slim automatically as overall body fat % drops. By Month 4–6 you'll see clear jaw and cheekbone definition.</p>
+  </div>
+  <div class="green-box">
+    <div class="green-title">Track These Monthly</div>
+    <div style="font-size:13px;color:#888;line-height:2.3">
+      <div>✓ Waist measurement at navel (cm)</div>
+      <div>✓ Morning fasted weight</div>
+      <div>✓ Progress photos — same lighting, same time</div>
+      <div>✓ Key lifts (Squat, Deadlift, Bench) progressing</div>
+      <div>✓ How clothes fit around waist and face</div>
     </div>
   </div>
+</div></div>
 
-  <!-- TIMELINE PAGE -->
-  <div class="page" id="page-timeline">
-    <div class="content">
-      <p class="info-text" style="margin-bottom:20px">
-        Following the full modified plan — training, diet, supplements, sleep, and steps all consistent.
-      </p>
-      <div class="tl-wrap">
-        <div class="tl-bar"></div>
-        <div id="timeline-list"></div>
-      </div>
-      <div class="purple-box">
-        <div class="purple-title">About Face Fat</div>
-        <p class="info-text">
-          Face fat cannot be spot-reduced — it's genetic distribution. It will slim automatically
-          as overall body fat % drops. By Month 4–6 you'll see clear jaw and cheekbone definition.
-        </p>
-      </div>
-      <div class="green-box">
-        <div class="green-title">Track These Monthly</div>
-        <div style="font-size:13px;color:#888;line-height:2.3">
-          <div>✓ Waist measurement at navel (cm)</div>
-          <div>✓ Morning fasted weight</div>
-          <div>✓ Progress photos — same lighting, same time</div>
-          <div>✓ Key lifts (Squat, Deadlift, Bench) progressing</div>
-          <div>✓ How clothes fit around waist and face</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<script>
+// ============================================================
+// DATA — Edit only these sections to modify the app
+// ============================================================
 
-  <script type="module" src="/src/main.js"></script>
+const WORKOUT = [
+  { day:"MONDAY", label:"PUSH + CARDIO", modified:true,
+    exercises:[
+      {name:"Incline Barbell Press",sets:"3 × 6-8"},
+      {name:"Flat DB Press",sets:"3 × 8-10"},
+      {name:"Seated DB Shoulder Press",sets:"3 × 8-10"},
+      {name:"Cable Lateral Raise",sets:"3 × 12-15"},
+      {name:"Rope Pushdown",sets:"3 × 10-12"},
+      {name:"Overhead Extension",sets:"2 × 10-12"}
+    ],
+    addition:"✚ Zone 2 Cardio: 25 min incline treadmill or cycling after lifting\nTarget: 116–136 bpm · Can hold a conversation"
+  },
+  { day:"TUESDAY", label:"PULL", modified:false,
+    exercises:[
+      {name:"Weighted Pull-Ups",sets:"3 × 6-8"},
+      {name:"Barbell Row",sets:"3 × 6-8"},
+      {name:"Cable Row",sets:"2 × 8-12"},
+      {name:"Face Pulls",sets:"3 × 12-15"},
+      {name:"Barbell Curl",sets:"3 × 8-10"},
+      {name:"Hammer Curl",sets:"2 × 10-12"}
+    ], addition:null
+  },
+  { day:"WEDNESDAY", label:"LEGS + ABS + CARDIO", modified:true,
+    exercises:[
+      {name:"Squat",sets:"4 × 5-8"},
+      {name:"Romanian Deadlift",sets:"3 × 8-10"},
+      {name:"Leg Press",sets:"3 × 10-15"},
+      {name:"Bulgarian Split Squat",sets:"2 × 10-12"},
+      {name:"Leg Curl",sets:"3 × 10-15"},
+      {name:"Calf Raises",sets:"4 × 15-20"},
+      {name:"",sets:"",absLabel:true},
+      {name:"Hanging Leg Raises",sets:"3 sets"},
+      {name:"Cable Crunches",sets:"3 sets"},
+      {name:"Plank",sets:"2 × 60 sec"}
+    ],
+    addition:"✚ Zone 2 Cardio: 20 min light cycling post-session\nKeep it light — legs will be fatigued"
+  },
+  { day:"THURSDAY", label:"ACTIVE RECOVERY", modified:false,
+    exercises:[{name:"30–45 min walk",sets:""},{name:"Mobility work",sets:""},{name:"Stretching",sets:""}],
+    addition:null
+  },
+  { day:"FRIDAY", label:"PUSH + CARDIO", modified:true,
+    exercises:[
+      {name:"Bench Press",sets:"4 × 4-6"},
+      {name:"Incline DB Press",sets:"3 × 8-10"},
+      {name:"Arnold Press",sets:"3 × 8-10"},
+      {name:"Lateral Raise Machine",sets:"3 × 12-15"},
+      {name:"Skull Crushers",sets:"3 × 8-10"},
+      {name:"Dips",sets:"2 sets to failure"}
+    ],
+    addition:"✚ Zone 2 Cardio: 25 min incline treadmill or cycling after lifting"
+  },
+  { day:"SATURDAY", label:"PULL + ABS + CARDIO", modified:true,
+    exercises:[
+      {name:"Deadlift",sets:"2 × 3-5"},
+      {name:"Lat Pulldown",sets:"3 × 8-10"},
+      {name:"One-Arm DB Row",sets:"3 × 10"},
+      {name:"Straight Arm Pulldown",sets:"2 × 12-15"},
+      {name:"Incline Curl",sets:"3 × 8-12"},
+      {name:"Concentration Curl",sets:"2 × 10-12"},
+      {name:"",sets:"",absLabel:true},
+      {name:"Hanging Leg Raises",sets:"3 sets"},
+      {name:"Ab Wheel",sets:"3 sets"},
+      {name:"Reverse Crunch",sets:"2 sets"}
+    ],
+    addition:"✚ Steady-State Cardio: 40 min brisk walk or light cycling\nCan be done same day evening or separate session"
+  },
+  { day:"SUNDAY", label:"REST + STEPS", modified:true,
+    exercises:[{name:"Complete rest from training",sets:""}],
+    addition:"✚ 8,000–10,000 steps target\nPassive fat burn — walk outside, mall, anywhere"
+  }
+];
+
+const MEALS = [
+  { name:"Meal 1 — Breakfast", time:"MORNING · FIRST THING", kcal:"~440 kcal", modified:false,
+    items:[
+      "Dymatize Whey — 30g",
+      "Rolled Oats — <rc>35g raw → ~85g cooked</rc>",
+      "Banana — 80g",
+      "Mixed Seeds — 12g",
+      "Whole Egg — 1 egg <rc>(~50g raw → ~45g cooked)</rc>",
+      "Psyllium Husk — 5g (add after cooking oats)",
+      "Flaxseeds (ground) — 10g"
+    ],
+    drink:"🍵 Spearmint Tea — 1 cup",
+    macros:"38g protein · 52g carbs · 17g fat · 8g fiber", note:null
+  },
+  { name:"Meal 2 — Lunch", time:"MIDDAY", kcal:"~540 kcal", modified:false,
+    items:[
+      "Chicken Breast — <rc>235g raw → ~185g cooked</rc>",
+      "Sweet Potato — <rc>180g raw → ~150g cooked</rc>",
+      "Lemon — half (squeezed)",
+      "── Option A ──",
+      "Spinach — <rc>100g raw → ~35g cooked</rc>",
+      "Carrot — <rc>70g raw → ~50g cooked</rc>",
+      "Capsicum — <rc>100g raw → ~70g cooked</rc>",
+      "── Option B ──",
+      "Green Beans — <rc>200g raw → ~130g cooked</rc>",
+      "Carrot — <rc>70g raw → ~50g cooked</rc>",
+      "Capsicum — <rc>150g raw → ~100g cooked</rc>"
+    ],
+    drink:null, macros:"52g protein · 55g carbs · 8g fat · 5g fiber", note:null
+  },
+  { name:"Meal 3 — Pre-Workout", time:"60–90 MIN BEFORE GYM", kcal:"~580 kcal", modified:true,
+    items:[
+      "Rolled Oats — <rc>68g raw → ~165g cooked</rc>",
+      "Banana — 90g",
+      "Honey — 7g (1 tsp)",
+      "NEW: Whole Eggs — <rc>2 eggs (~100g raw → ~90g cooked)</rc>",
+      "NEW: Dymatize Whey — ½ scoop (15g)"
+    ],
+    drink:null, macros:"35g protein · 80g carbs · 11g fat · 5g fiber",
+    note:"Greek Yogurt removed — replaced with whole eggs + half scoop whey. Whole food, no market trust issues, ~25g protein added"
+  },
+  { name:"Post-Workout", time:"WITHIN 30 MIN AFTER TRAINING", kcal:"~180 kcal", modified:false,
+    items:["Dymatize Whey — 30g","Chia Seeds — 5g","Sabja Seeds — 5g","Creatine — 5g (1 rounded tsp)"],
+    drink:"Mix with 400–500ml water", macros:"27g protein · 5g carbs · 3g fat · 2g fiber", note:null
+  },
+  { name:"Meal 4 — Dinner", time:"EVENING", kcal:"~420 kcal", modified:false,
+    items:[
+      "Tofu (firm) — <rc>250g raw → ~220g cooked</rc>",
+      "Zucchini OR Bottle Gourd — <rc>330g raw → ~220g cooked</rc>",
+      "Garlic — 2 cloves (~10g raw)",
+      "Olive Oil — 5g (1 tsp)"
+    ],
+    drink:"🍵 Spearmint Tea — 1 cup", macros:"32g protein · 17g carbs · 18g fat · 3g fiber", note:null
+  }
+];
+
+const SUPPLEMENTS = [
+  { groupTitle:"🍋 Empty Stomach — First Thing Morning", items:[
+    { name:"Half Lemon in Warm Water", detail:"Squeeze into 200ml warm water. Drink 10 min before anything else. Vitamin C from lemon significantly boosts Glutathione absorption — do this first every single day.", dose:"½ lemon", timing:"First thing" },
+    { name:"NOW Glutathione 500mg", detail:"Label: 'Preferably on empty stomach.' Contains Reduced L-Glutathione + Milk Thistle Extract + Alpha Lipoic Acid. Empty stomach = full 500mg absorption. Food reduces this by ~30%. Take right after lemon water.", dose:"1 veg cap (500mg)", timing:"Empty stomach, after lemon" }
+  ]},
+  { groupTitle:"☀️ Meal 1 — Breakfast (With Food)", items:[
+    { name:"Pure Encapsulations Vitamin D3", detail:"Label: 1 cap = 125mcg (5,000 IU) = 625% DV. Fat-soluble — MUST have fat to absorb. Meal 1 has eggs + flaxseeds = enough fat. Supports musculoskeletal, cardiovascular, neurocognitive and immune health.", dose:"1 cap (5,000 IU)", timing:"With Meal 1" },
+    { name:"Vitamin E", detail:"Fat-soluble antioxidant. Always pair with Vitamin D3 — they work synergistically. Protects cells from heavy training oxidative stress. Take with same fat-containing meal as D3.", dose:"1 cap", timing:"With Meal 1 — same as D3" },
+    { name:"Nordic Naturals Ultimate Omega", detail:"Label: 2 softgels = 1280mg Total Omega-3 (EPA 650mg + DHA 450mg). Fat-soluble — take with food. Split: 2 softgels Meal 1 + 2 softgels Meal 4. Total daily: 2560mg Omega-3.", dose:"2 softgels", timing:"With Meal 1" },
+    { name:"Pure Hawaiian Spirulina", detail:"Label: '6 tablets daily with or between meals. Refrigerate after opening.' 6 tabs = 3g Spirulina = 10 cal, 2g protein, 3mg iron. Contains chicory inulin. Keep refrigerated after opening.", dose:"6 tablets (3g)", timing:"With Meal 1 — refrigerate bottle" }
+  ]},
+  { groupTitle:"🍗 Meal 2 — Lunch (With Food)", items:[
+    { name:"NOW Saw Palmetto Extract 320mg", detail:"Label: 1 Veggie Softgel = 320mg Saw Palmetto Berry Extract (standardized to 85–95% fatty acids USP) + Pumpkin Seed Oil. Must be taken with food — oil content causes nausea on empty stomach. Supports DHT balance and prostate health.", dose:"1 veggie softgel (320mg)", timing:"With Meal 2 — must be with food" }
+  ]},
+  { groupTitle:"🏋 Pre-Workout — After Meal 3", items:[
+    { name:"Transparent Labs BULK", detail:"Label: 'Take ½ scoop with 8–10oz water 20–30 min before training to assess tolerance. For full intensity: 1 scoop with 10–12oz water 20–30 min before. DO NOT EXCEED 2 scoops/day.' Beta-Alanine causes harmless skin tingling. Start at ½ scoop for first 2 weeks.", dose:"½ scoop (week 1–2), then 1 scoop", timing:"20–30 min before training, after Meal 3" }
+  ]},
+  { groupTitle:"💪 Post-Workout — Within 30 Min", items:[
+    { name:"ON Micronized Creatine Powder", detail:"Label: Serving = 5g (1 rounded teaspoon). 100% Creatine Monohydrate. Directions: 'Add 5g to a protein shake.' Mix into post-workout whey shake. Take DAILY including rest days — consistency matters more than timing.", dose:"5g (1 rounded teaspoon)", timing:"In post-workout whey shake daily" }
+  ]},
+  { groupTitle:"🌙 Meal 4 — Dinner (With Food)", items:[
+    { name:"Nordic Naturals Ultimate Omega (2nd dose)", detail:"2nd serving. 2 softgels = 1280mg Omega-3 (EPA 650mg + DHA 450mg). Evening dose reduces overnight inflammation, supports fat metabolism during sleep. Meal 4 has olive oil = enough fat for absorption.", dose:"2 softgels", timing:"With Meal 4" },
+    { name:"NutraBio KSM-66 Ashwagandha", detail:"Label: 1 Vegetable Capsule. KSM-66 standardized to 5% withanolides — most clinically validated form. Reduces cortisol (directly fights visceral fat), improves sleep quality. Takes 6–8 weeks for full effect. Never skip days.", dose:"1 veg cap", timing:"With Meal 4 — evening for cortisol" }
+  ]},
+  { groupTitle:"🛏 Before Bed — Empty Stomach", items:[
+    { name:"ON Zinc Magnesium Aspartate (ZMA)", detail:"Label DIRECTIONS: 'Men — take 3 capsules before bed.' Per 3 caps: Vitamin B6 10mg (588% DV) + Magnesium 435mg (104% DV) + Zinc 28mg (255% DV). CRITICAL: Empty stomach only — calcium in food blocks zinc absorption completely. Most impactful night supplement for testosterone, deep sleep, and recovery.", dose:"3 caps (Zn 28mg + Mg 435mg + B6 10mg)", timing:"30–60 min before bed — empty stomach" }
+  ]},
+  { groupTitle:"🌾 In Food — Daily Fiber", items:[
+    { name:"NOW Psyllium Husk Powder", detail:"Label: Serving = 1 level tbsp (9g) = 7g dietary fiber (6g soluble + 1g insoluble). Plan uses 5g in Meal 1 oats — good starting dose. Increase to full 9g (1 tbsp) when comfortable. NEVER take dry — always in food or water.", dose:"5g in Meal 1 oats → can go to 9g", timing:"Already mixed into Meal 1 oats" }
+  ]}
+];
+
+// ============================================================
+// RENDERER — do not modify below this line
+// ============================================================
+
+function parseIng(str) {
+  return str.replace(/<rc>(.*?)<\/rc>/g, '<span class="rc-note">$1</span>');
+}
+
+function buildWorkout() {
+  const el = document.getElementById('workout-list');
+  WORKOUT.forEach((d, i) => {
+    const id = 'w' + i;
+    const color = d.modified ? '#f97316' : '#22c55e';
+    const badge = d.modified
+      ? '<span class="badge badge-orange">MODIFIED</span>'
+      : '<span class="badge badge-green">UNCHANGED</span>';
+    const rows = d.exercises.map(ex => {
+      if (ex.absLabel) return '<div class="abs-label">ABS</div>';
+      return `<div class="ex-row"><span class="ex-name">${ex.name}</span>${ex.sets ? `<span class="ex-sets">${ex.sets}</span>` : ''}</div>`;
+    }).join('');
+    const add = d.addition ? `<div class="addition-box">${d.addition.replace(/\n/, '<br><span style="color:#888;font-weight:400">') + '</span>'}</div>` : '';
+    el.insertAdjacentHTML('beforeend', `
+      <div class="card">
+        <button class="card-header" onclick="toggleCard('${id}')">
+          <div class="card-left"><div class="dot" style="background:${color}"></div><div><div class="card-day">${d.day}</div><div class="card-title">${d.label}</div></div></div>
+          <div class="card-right">${badge}<span class="chevron" id="ch-${id}">▼</span></div>
+        </button>
+        <div class="card-body" id="body-${id}"><div style="padding-top:12px">${rows}${add}</div></div>
+      </div>`);
+  });
+}
+
+function buildMeals() {
+  const el = document.getElementById('meals-list');
+  MEALS.forEach((m, i) => {
+    const id = 'm' + i;
+    const color = m.modified ? '#f97316' : '#22c55e';
+    const badge = m.modified ? '<span class="badge badge-orange">MODIFIED</span>' : '';
+    const rows = m.items.map(item => {
+      if (item.startsWith('──')) return `<div class="option-divider">${item}</div>`;
+      const isNew = item.startsWith('NEW:');
+      return `<div class="ing-row${isNew ? ' new-item' : ''}">${parseIng(isNew ? item.replace('NEW:', '✚') : item)}</div>`;
+    }).join('');
+    const drink = m.drink ? `<div style="font-size:12px;color:#666;margin-top:8px">${m.drink}</div>` : '';
+    const note = m.note ? `<div class="note-box">⚠ ${m.note}</div>` : '';
+    el.insertAdjacentHTML('beforeend', `
+      <div class="card">
+        <button class="card-header" onclick="toggleCard('${id}')">
+          <div class="card-left"><div class="dot" style="background:${color}"></div><div><div class="card-day">${m.time}</div><div class="card-title">${m.name}</div></div></div>
+          <div class="card-right"><span style="font-size:12px;color:#777">${m.kcal}</span>${badge}<span class="chevron" id="ch-${id}">▼</span></div>
+        </button>
+        <div class="card-body" id="body-${id}"><div style="padding-top:12px">${rows}${drink}<div class="macros-bar">${m.macros}</div>${note}</div></div>
+      </div>`);
+  });
+}
+
+function buildSupps() {
+  const el = document.getElementById('supp-list');
+  SUPPLEMENTS.forEach(g => {
+    const rows = g.items.map(s => `
+      <div class="supp-row">
+        <div class="supp-left"><div class="supp-name">${s.name}</div><div class="supp-detail">${s.detail}</div></div>
+        <div class="supp-right"><div class="supp-dose">${s.dose}</div><div class="supp-timing">${s.timing}</div></div>
+      </div>`).join('');
+    el.insertAdjacentHTML('beforeend', `<div class="supp-section"><div class="supp-section-title">${g.groupTitle}</div>${rows}</div>`);
+  });
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  document.getElementById('nav-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleCard(id) {
+  const body = document.getElementById('body-' + id);
+  const ch = document.getElementById('ch-' + id);
+  const open = body.classList.toggle('open');
+  ch.textContent = open ? '▲' : '▼';
+}
+
+buildWorkout();
+buildMeals();
+buildSupps();
+</script>
 </body>
 </html>
