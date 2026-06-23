@@ -171,7 +171,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
 <!-- ===== DIET ===== -->
 <div class="page" id="page-diet"><div class="content">
   <p class="section-label">Daily Targets</p>
-  <div class="targets-grid">
+  <!-- Training Day Targets -->
+  <div id="targets-training" class="targets-grid">
     <div class="target-card"><div class="target-val">~2,220</div><div class="target-label">Calories</div></div>
     <div class="target-card"><div class="target-val">~183g</div><div class="target-label">Protein</div></div>
     <div class="target-card"><div class="target-val">~185g</div><div class="target-label">Carbs</div></div>
@@ -179,8 +180,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;backg
     <div class="target-card"><div class="target-val">~35g</div><div class="target-label">Fiber</div></div>
     <div class="target-card"><div class="target-val">3.5–4L</div><div class="target-label">Water</div></div>
   </div>
+  <!-- Rest Day Targets -->
+  <div id="targets-rest" class="targets-grid" style="display:none">
+    <div class="target-card" style="border:1px solid #22c55e22"><div class="target-val" style="color:#22c55e">~1,900</div><div class="target-label">Calories</div></div>
+    <div class="target-card" style="border:1px solid #22c55e22"><div class="target-val" style="color:#22c55e">~170g</div><div class="target-label">Protein</div></div>
+    <div class="target-card" style="border:1px solid #22c55e22"><div class="target-val" style="color:#22c55e">~130g</div><div class="target-label">Carbs ↓</div></div>
+    <div class="target-card" style="border:1px solid #22c55e22"><div class="target-val" style="color:#22c55e">~62g</div><div class="target-label">Fat</div></div>
+    <div class="target-card" style="border:1px solid #22c55e22"><div class="target-val" style="color:#22c55e">~35g</div><div class="target-label">Fiber</div></div>
+    <div class="target-card" style="border:1px solid #22c55e22"><div class="target-val" style="color:#22c55e">3.5–4L</div><div class="target-label">Water</div></div>
+  </div>
+  <!-- Day Type Toggle -->
+  <div style="display:flex;gap:8px;margin-bottom:16px;">
+    <button id="btn-training" onclick="switchDayType('training')" style="flex:1;padding:10px;border-radius:10px;border:2px solid #f97316;background:#f9731620;color:#f97316;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;">🏋 Training Day</button>
+    <button id="btn-rest"     onclick="switchDayType('rest')"     style="flex:1;padding:10px;border-radius:10px;border:2px solid #1e1e1e;background:#111;color:#555;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;">😴 Rest Day</button>
+  </div>
   <p style="font-size:12px;color:#666;margin-bottom:14px">Tap a meal to expand. <span style="color:#f97316">Orange = modified</span></p>
   <div id="meals-list"></div>
+  <div id="rest-meals-list" style="display:none"></div>
   <div style="background:#111;border:1px solid #2a2a1e;border-radius:14px;padding:16px;margin-top:8px">
     <div style="font-size:12px;color:#f97316;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Optional — Visceral Fat Add-On</div>
     <p class="info-text"><strong style="color:#fff">Apple Cider Vinegar:</strong> 10–15ml in 200ml water, 15 min before Meal 2 and Meal 4.</p>
@@ -494,6 +510,104 @@ function toggleCard(id) {
   const ch = document.getElementById('ch-' + id);
   const open = body.classList.toggle('open');
   ch.textContent = open ? '▲' : '▼';
+}
+
+const REST_MEALS = [
+  { name:"Meal 1 — Breakfast", time:"MORNING · FIRST THING", kcal:"~360 kcal", modified:false,
+    items:[
+      "Dymatize Whey — 30g",
+      "Rolled Oats — <rc>25g raw → ~60g cooked</rc>",
+      "Banana — 50–60g",
+      "Mixed Seeds — 12g",
+      "Whole Egg — 1 egg <rc>(~50g raw → ~45g cooked)</rc>",
+      "Psyllium Husk — 5g (add after cooking oats)",
+      "Flaxseeds (ground) — 10g"
+    ],
+    drink:"🍵 Spearmint Tea — 1 cup",
+    macros:"36g protein · 38g carbs · 17g fat · 8g fiber", note:"Oats reduced 35g → 25g, banana reduced — lower carbs on rest day"
+  },
+  { name:"Meal 2 — Lunch", time:"MIDDAY", kcal:"~460 kcal", modified:false,
+    items:[
+      "Chicken Breast — <rc>235g raw → ~185g cooked</rc>",
+      "Sweet Potato — <rc>80–100g raw → ~65–80g cooked</rc>",
+      "Lemon — half (squeezed)",
+      "── Option A ──",
+      "Spinach — <rc>100g raw → ~35g cooked</rc>",
+      "Carrot — <rc>70g raw → ~50g cooked</rc>",
+      "Capsicum — <rc>100g raw → ~70g cooked</rc>",
+      "── Option B ──",
+      "Green Beans — <rc>200g raw → ~130g cooked</rc>",
+      "Carrot — <rc>70g raw → ~50g cooked</rc>",
+      "Capsicum — <rc>150g raw → ~100g cooked</rc>"
+    ],
+    drink:null, macros:"52g protein · 38g carbs · 7g fat · 5g fiber",
+    note:"Sweet potato halved vs training day — less carbs needed without workout"
+  },
+  { name:"Whey Shake (optional)", time:"FLEXIBLE — ANYTIME", kcal:"~120 kcal", modified:false,
+    items:[
+      "Dymatize Whey — 30g",
+      "Mix with 300ml water"
+    ],
+    drink:null, macros:"25g protein · 3g carbs · 2g fat · 0g fiber",
+    note:"Optional on rest days. Can move this to Meal 1 instead if preferred. No post-workout shake needed today."
+  },
+  { name:"Meal 4 — Dinner", time:"EVENING", kcal:"~450 kcal", modified:false,
+    items:[
+      "Tofu (firm) — <rc>250g raw → ~220g cooked</rc>",
+      "Zucchini OR Bottle Gourd — <rc>330g raw → ~220g cooked</rc>",
+      "Garlic — 2 cloves (~10g raw)",
+      "Olive Oil — 7g (slightly more than training day)"
+    ],
+    drink:"🍵 Spearmint Tea — 1 cup",
+    macros:"32g protein · 17g carbs · 20g fat · 3g fiber",
+    note:"Olive oil slightly increased to 7g — healthy fat replaces some of the carbs cut today"
+  }
+];
+
+function buildRestMeals() {
+  const el = document.getElementById('rest-meals-list');
+  if (el.innerHTML !== '') return; // already built
+  REST_MEALS.forEach((m, i) => {
+    const id = 'r' + i;
+    const rows = m.items.map(item => {
+      if (item.startsWith('──')) return `<div class="option-divider">${item}</div>`;
+      const isNew = item.startsWith('NEW:');
+      return `<div class="ing-row${isNew ? ' new-item' : ''}">${parseIng(isNew ? item.replace('NEW:','✚') : item)}</div>`;
+    }).join('');
+    const drink = m.drink ? `<div style="font-size:12px;color:#666;margin-top:8px">${m.drink}</div>` : '';
+    const note = m.note ? `<div class="note-box">⚠ ${m.note}</div>` : '';
+    el.insertAdjacentHTML('beforeend', `
+      <div class="card" style="border-color:#22c55e22">
+        <button class="card-header" onclick="toggleCard('${id}')">
+          <div class="card-left"><div class="dot" style="background:#22c55e"></div><div><div class="card-day">${m.time}</div><div class="card-title">${m.name}</div></div></div>
+          <div class="card-right"><span style="font-size:12px;color:#777">${m.kcal}</span><span class="chevron" id="ch-${id}">▼</span></div>
+        </button>
+        <div class="card-body" id="body-${id}"><div style="padding-top:12px">${rows}${drink}<div class="macros-bar">${m.macros}</div>${note}</div></div>
+      </div>`);
+  });
+}
+
+let currentDayType = 'training';
+function switchDayType(type) {
+  currentDayType = type;
+  const isRest = type === 'rest';
+  // toggle targets
+  document.getElementById('targets-training').style.display = isRest ? 'none' : 'grid';
+  document.getElementById('targets-rest').style.display     = isRest ? 'grid' : 'none';
+  // toggle meals
+  document.getElementById('meals-list').style.display      = isRest ? 'none' : 'block';
+  document.getElementById('rest-meals-list').style.display = isRest ? 'block' : 'none';
+  // toggle buttons
+  const btnT = document.getElementById('btn-training');
+  const btnR = document.getElementById('btn-rest');
+  if (isRest) {
+    btnT.style.cssText = 'flex:1;padding:10px;border-radius:10px;border:2px solid #1e1e1e;background:#111;color:#555;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;';
+    btnR.style.cssText = 'flex:1;padding:10px;border-radius:10px;border:2px solid #22c55e;background:#22c55e20;color:#22c55e;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;';
+    buildRestMeals();
+  } else {
+    btnT.style.cssText = 'flex:1;padding:10px;border-radius:10px;border:2px solid #f97316;background:#f9731620;color:#f97316;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;';
+    btnR.style.cssText = 'flex:1;padding:10px;border-radius:10px;border:2px solid #1e1e1e;background:#111;color:#555;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;';
+  }
 }
 
 buildWorkout();
